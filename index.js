@@ -40,3 +40,13 @@ app.get('/api/mahasiswa', (req, res) => {
     res.json(results);
   });
 });
+
+app.post('/api/mahasiswa', (req, res) => {
+  const { nama, nim, kelas, prodi } = req.body;
+  
+  if (!nama || !nim || !kelas || !prodi) {
+    res.status(400).send('All fields are required');
+    return;
+  }
+
+  

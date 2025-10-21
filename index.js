@@ -52,11 +52,11 @@ app.post('/api/mahasiswa', (req, res) => {
     [nama, nim, kelas, prodi], 
     (err, results) => {
     if (err) {
-      console.error('Error inserting mahasiswa data:', err.stack);
+      console.error(err);
       return res.status(500).send({ message: 'Error inserting data' });
       
     }
-    res.status(201).json({ message: 'Mahasiswa added successfully'});
+    res.status(201).json({ message: 'Mahasiswa added successfully' });
   });
 });
 

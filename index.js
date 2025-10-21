@@ -23,6 +23,20 @@ const db = mysql.createConnection({
 });
 
 db.connect((err) => {
-  if (err) throw err;
-  console.log('Connected!');
+  if (err) {
+    console.error('Error connecting to the database:', err.stack);
+    return;
+  }
+  console.log('Connected to the database');
+});
+
+app.get('/api/mahasiswa', (req, res) => {
+  db.query('SELECT * FROM mahasiswa', (err, results) => {
+    if (err) {
+      console.error('Error fetching mahasiswa data:', err.stack);
+      res.status(500).send('Error fetching data');
+      return;
+    }
+    res.json(results);
+  });
 });

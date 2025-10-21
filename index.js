@@ -45,8 +45,18 @@ app.post('/api/mahasiswa', (req, res) => {
   const { nama, nim, kelas, prodi } = req.body;
   
   if (!nama || !nim || !kelas || !prodi) {
-    res.status(400).send('All fields are required');
-    return;
+    return res.status(400).json({ message: 'All fields are required' });
   }
 
-  
+  db.query('INSERT INTO mahasiswa (nama, nim, kelas, prodi) VALUES (?, ?, ?, ?)', 
+    [nama, nim, kelas, prodi], 
+    (err, results) => {
+    if (err) {
+      console.error('Error inserting mahasiswa data:', err.stack);
+      return res.status(500).send({ message: 'Error inserting data' });
+      
+    }
+    res.status(201).json({ message: 'Mahasiswa added successfully'});
+  });
+});
+
